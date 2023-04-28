@@ -8,6 +8,7 @@ packages = [{include = "chef_helper"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+requests = "^2.28.2"
 
 
 [build-system]
