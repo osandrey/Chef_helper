@@ -1,15 +1,17 @@
 import socket
 import time
 from concurrent import futures as cf
-from reciept_searcher_service import get_reciept_by_name, get_reciept_via_id
+from reciept_searcher_service import get_reciept_by_name, get_reciept_via_id, get_logger
 
 TCP_IP = 'localhost'
 TCP_PORT = 15000
-
+logger = get_logger(__name__)
 
 def run_server(ip, port):
     def handle(sock: socket.socket, address: str):
+        logger.debug('Start program!')
         print(f'Connection established {address}')
+
         while True:
             received = sock.recv(1024*10)
             if not received:
@@ -37,6 +39,8 @@ def run_server(ip, port):
             title, instruction = get_reciept_via_id(target_id)
             print(title, instruction, sep=' | ')
             sock.send(f'Your meal is: {title}\nThe coocking: {instruction}'.encode())
+            logger.info(f'Your meal is: {title}\n')
+            logger.warning(f'The coocking: {instruction}\n')
             time.sleep(2)
 
             # sock.send(received)
