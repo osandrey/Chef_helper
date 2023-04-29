@@ -1,11 +1,13 @@
 import socket
 import time
 
-TCP_IP = 'localhost'
+TCP_IP = '195.201.150.230'
 TCP_PORT = 15000
 
 
-def run_client(ip: str, port: int):
+def run_client():
+    ip = TCP_IP
+    port = TCP_PORT
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         server = ip, port
         sock.connect(server)
@@ -37,4 +39,4 @@ def run_client(ip: str, port: int):
 
 
 if __name__ == '__main__':
-    run_client(TCP_IP, TCP_PORT)
+    run_client()

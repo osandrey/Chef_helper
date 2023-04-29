@@ -3,7 +3,8 @@ import time
 from concurrent import futures as cf
 from reciept_searcher_service import get_reciept_by_name, get_reciept_via_id, get_logger
 
-TCP_IP = 'localhost'
+# TCP_IP = '0.0.0.0' #for server
+TCP_IP = 'localhost' #for local
 TCP_PORT = 15000
 logger = get_logger(__name__)
 
@@ -34,14 +35,18 @@ def run_server(ip, port):
             time.sleep(2)
             id_num = sock.recv(1024*10)
             print(id_num)
+            if id_num.decode().isdigit():
+                target_id = meals_variation[int(id_num.decode())]
+                title, instruction = get_reciept_via_id(target_id)
+                print(title, instruction, sep=' | ')
+                sock.send(f'Your meal is: {title}\nThe coocking: {instruction}'.encode())
+                logger.info(f'Your meal is: {title}\n')
+                logger.warning(f'The coocking: {instruction}\n')
+                time.sleep(2)
+            else:
+                sock.send(f'Please choose digit type integer (1-10)')
 
-            target_id = meals_variation[int(id_num.decode())]
-            title, instruction = get_reciept_via_id(target_id)
-            print(title, instruction, sep=' | ')
-            sock.send(f'Your meal is: {title}\nThe coocking: {instruction}'.encode())
-            logger.info(f'Your meal is: {title}\n')
-            logger.warning(f'The coocking: {instruction}\n')
-            time.sleep(2)
+
 
             # sock.send(received)
         print(f'Socket connection closed {address}')

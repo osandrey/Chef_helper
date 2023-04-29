@@ -4,7 +4,7 @@ import logging
 
 _format = f"%(asctime)s [%(levelname)s] - %(name)s - %(funcName)s(%(lineno)d) - %(message)s - %(pathname)s - %(msecs)d"
 
-file = 'data/chef_helper.log'
+file = 'chef_helper.log'
 
 
 file_handler = logging.FileHandler(file)
