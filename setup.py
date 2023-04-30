@@ -2,7 +2,7 @@ from setuptools import setup, find_namespace_packages
 
 setup(
     name="chef_helper",
-    version="4",
+    version="5",
     description="Helping the chef find meal cooking instructions.",
     url="http://github.com/osandrey/Chef_helper",
     author="OSA",
